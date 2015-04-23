@@ -1,6 +1,50 @@
-set nocompatible              " be iMproved, required
 filetype off                  " required
+set nocompatible              " be iMproved, required
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 显示相关  
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示  
+set go=             " 不要图形按钮  
+syntax on           " 语法高亮  
+autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
+autocmd InsertEnter * se cul    " 用浅色高亮当前行  
+set showcmd         " 输入的命令显示出来，看的清楚些  
+  
+set novisualbell    " 不要闪烁(不明白)  
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
+set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)  
+set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
+
+" 显示中文帮助
+if version >= 603
+	set helplang=cn
+	set encoding=utf-8
+endif
+
+" 设置配色方案
+set background=dark "背景使用黑色 
+
+"colorscheme torte
+"colorscheme murphy
+"colorscheme desert 
+"colorscheme desert 
+"colorscheme elflord
+"colorscheme ron
+colorscheme slate
+"colorscheme murphy
+"colorscheme solarized
+"字体 
+"if (has("gui_running")) 
+"   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10 
+"endif
+" set ruler           " 显示标尺  
+" set cmdheight=1     " 命令行（在状态行下）的高度，设置为1  
+" set whichwrap+=<,>,h,l   " 允许backspace和光标键跨越行边界(不建议)  
+" set scrolloff=3     " 光标移动到buffer的顶部和底部时保持3行距离  
+" set foldenable      " 允许折叠  
+" set foldmethod=manual   " 手动折叠
 " set the runtime path to include Vundle and initialize
+
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
@@ -21,124 +65,50 @@ Plugin 'git://git.wincent.com/command-t.git'
 " The sparkup vim script is in a subdirectory of this repo called vim.
 " Pass the path to set the runtimepath properly.
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" Avoid a name conflict with L9
-" Plugin 'user/L9', {'name': 'newL9'}
 Plugin 'git://github.com/digitaltoad/vim-jade.git'
+" 搞明白的插件
+"
+" NERDTree目录插件
 Plugin 'git://github.com/scrooloose/nerdtree.git'
+"
+" 颜色配置以及高亮支持
 " vim-coffee-script
 Plugin 'kchmck/vim-coffee-script'
 Plugin 'altercation/vim-colors-solarized'
-"Plugin 'rking/ag.vim'
+"
+" Ag快速查找插件，比grep要快很多
+Plugin 'rking/ag.vim'
+"
+" 编辑中4个空格的缩紧线条显示插件
 Plugin 'Yggdroot/indentLine'
+"
+" javascript 语法规范检查
 Bundle 'lykling/fecs.vim'
+"
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
 "
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+" 快捷键设置 和 对应的函数定义
 "
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-map <F9> :call SaveInputData()<CR>
-func! SaveInputData()
-	exec "tabnew"
-	exec 'normal "+gP'
-	exec "w! /tmp/input_data"
-endfunc
-"pathogen
-"execute pathogen#infect()
-"NERDTree
-"map <C-l> :tabn<cr>             " 下一个tab
-"map <C-h> :tabp<cr>             " 上一个tab
-"map <C-n> :tabnew<cr>           " 新tab
-"map <C-k> :bn<cr>               " 下一个文件
-"map <C-j> :bp<cr>               " 上一个文件
+" NERDTree
+map <S-l> :tabn<cr>             " 下一个tab
+map <S-h> :tabp<cr>             " 上一个tab
+map <A-n> :tabnew<cr>           " 新tab
+map <S-k> :bn<cr>               " 下一个文件
+map <S-j> :bp<cr>               " 上一个文件
 let NERDTreeIgnore = ['\.pyc$']
 nmap <F3> :NERDTreeFocus<CR>
-"NERDTree-Tabs
-"let g:nerdtree_tabs_open_on_console_startup=1      "设置打开vim的时候默认打开目录树
-"map <leader>n <plug>NERDTreeTabsToggle <CR>         "设置打开目录树的快捷键
-"map <F4> :silent! NERDTreeTabsToggle<cr>           "按下F4 调出或隐藏 NERDTree
-"set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312,cp936
-"set termencoding=utf-8
-"set encoding=utf-8
-"set fileencodings=ucs-bom,utf-8,cp936
-"set fileencoding=utf-8
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 显示相关  
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示  
-"winpos 5 5          " 设定窗口位置  
-"set lines=40 columns=155    " 设定窗口大小  
-set go=             " 不要图形按钮  
-"color asmanian2     " 设置背景主题  
-"set guifont=Courier_New:h10:cANSI   " 设置字体  
-syntax on           " 语法高亮  
-autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
-autocmd InsertEnter * se cul    " 用浅色高亮当前行  
-"set ruler           " 显示标尺  
-set showcmd         " 输入的命令显示出来，看的清楚些  
-"set cmdheight=1     " 命令行（在状态行下）的高度，设置为1  
-"set whichwrap+=<,>,h,l   " 允许backspace和光标键跨越行边界(不建议)  
-"set scrolloff=3     " 光标移动到buffer的顶部和底部时保持3行距离  
-set novisualbell    " 不要闪烁(不明白)  
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
-set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)  
-"set foldenable      " 允许折叠  
-"set foldmethod=manual   " 手动折叠  
-set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
-" 显示中文帮助
-if version >= 603
-	set helplang=cn
-	set encoding=utf-8
-endif
-" 设置配色方案
-set background=dark "背景使用黑色 
-"colorscheme torte
-"colorscheme murphy
-"colorscheme desert 
-"colorscheme desert 
-"colorscheme elflord
-"colorscheme ron
-colorscheme slate
-"colorscheme murphy
-"colorscheme solarized
-"字体 
-"if (has("gui_running")) 
-"   set guifont=Bitstream\ Vera\ Sans\ Mono\ 10 
-"endif 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""""新文件标题
+" 新文件标题
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"新建.c,.h,.sh,.java文件，自动插入文件头 
-""autocmd BufNewFile *.py,*.cpp,*.[ch],*.sh,*.java,*.js exec ":call SetTitle()" 
+" 新建.c,.h,.sh,.java文件，自动插入文件头 
 map <F4> :call SetTitle()<cr>'s
 ""定义函数SetTitle，自动插入文件头 
 func SetTitle() 
 	"如果文件类型为.sh文件 
 	if &filetype == 'sh' 
-		call setline(1,"\#########################################################################") 
-		call append(line("."), "\# File Name: ".expand("%")) 
-		call append(line(".")+1, "\# Author: ma6174") 
-		call append(line(".")+2, "\# mail: ma6174@163.com") 
-		call append(line(".")+3, "\# Created Time: ".strftime("%c")) 
-		call append(line(".")+4, "\#########################################################################") 
-		call append(line(".")+5, "\#!/bin/bash") 
-		call append(line(".")+6, "") 
-"	else 
-"		call setline(1, "/*************************************************************************") 
-"		call append(line("."), "	> File Name: ".expand("%")) 
-"		call append(line(".")+1, "	> Author: ma6174") 
-"		call append(line(".")+2, "	> Mail: ma6174@163.com ") 
-"		call append(line(".")+3, "	> Created Time: ".strftime("%c")) 
-"		call append(line(".")+4, " ************************************************************************/") 
-"		call append(line(".")+5, "")
 	endif
     if &filetype == 'javascript'
 		call append(0,"/**") 
@@ -150,24 +120,32 @@ func SetTitle()
         call append(6,"*/")
     endif
 	if &filetype == 'cpp'
-		call append(line(".")+6, "#include<iostream>")
-		call append(line(".")+7, "using namespace std;")
-		call append(line(".")+8, "")
+		call append(0,"/**")
+		call append(1,"* @author: Jerry")
+		call append(2,"* Date: ".strftime("%Y-%m-%d"))
+		call append(3,"* Tags: ")
+		call append(4,"* difficulty: ")
+		call append(5,"*/")
+		call append(6,"#include<iostream>")
+		call append(7,"")
+		call append(8,"using namespace std;")
+		call append(9,"")
+		call append(10,"class Solution {};")
+		call append(11,"int main(){}")
 	endif
 	if &filetype == 'c'
-		call append(line(".")+6, "#include<stdio.h>")
-		call append(line(".")+7, "")
 	endif
-	"	if &filetype == 'java'
-	"		call append(line(".")+6,"public class ".expand("%"))
-	"		call append(line(".")+7,"")
-	"	endif
 	"新建文件后，自动定位到文件末尾
 	autocmd BufNewFile * normal G
-endfunc 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"键盘命令
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+endfunc
+
+map <F9> :call SaveInputData()<CR>
+func! SaveInputData()
+	exec "tabnew"
+	exec 'normal "+gP'
+	exec "w! /tmp/input_data"
+endfunc
+
 nmap <leader>w :w!<cr>
 nmap <leader>f :find<cr>
 " 映射全选+复制 ctrl+a
@@ -180,8 +158,7 @@ vmap <C-c> +y
 nnoremap <F2> :g/^\s*$/d<CR> 
 "比较文件  
 nnoremap <C-F2> :vert diffsplit 
-"新建标签  
-map <M-F2> :tabnew<CR> 
+map <C-F10> :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 "横向屏幕扩大
 nmap <C-l> :vertical resize +1<CR>
 "横向屏幕缩小
@@ -190,6 +167,9 @@ nmap <C-h> :vertical resize -1<CR>
 nmap <C-k> :resize +1<CR>
 "纵向屏幕缩小
 nmap <C-j> :resize -1<CR>
+"quickfix的快速前移动和后撤"
+nmap <silent> <C-N> :cn<CR>zv
+nmap <silent> <C-P> :cp<CR>zv
 "列出当前目录文件  
 "map <F3> :tabnew .<CR>  
 "打开树状文件目录  
@@ -221,6 +201,7 @@ endfunc
 ""	exec "!g++ % -g -o %<"
 ""	exec "!gdb ./%<"
 ""endfunc
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 ""实用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -297,7 +278,7 @@ set helplang=cn
 " 总是显示状态行
 set laststatus=2
 " 命令行（在状态行下）的高度，默认为1，这里是2
-set cmdheight=2
+set cmdheight=1
 " 侦测文件类型
 filetype on
 " 载入文件类型插件
@@ -370,6 +351,8 @@ set completeopt=longest,menu
 "nnoremap f :NERDTreeToggle
 "map <F7> :NERDTree<CR>  
 "colorscheme solarized
+
+" 屏幕缩进竖线设置,插件indentLine
 let g:indentLine_color_term=239
 let g:indentLine_char='|'
 let g:solarized_termcolors=256
