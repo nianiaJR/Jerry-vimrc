@@ -9,10 +9,12 @@ syntax on           " 语法高亮
 autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
 autocmd InsertEnter * se cul    " 用浅色高亮当前行  
 set showcmd         " 输入的命令显示出来，看的清楚些  
+
 set novisualbell    " 不要闪烁(不明白)  
 set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
 set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)  
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
+set colorcolumn=80
 
 " 显示中文帮助
 if version >= 603
@@ -213,7 +215,7 @@ set completeopt=preview,menu
 "允许插件  
 filetype plugin on
 "共享剪贴板  
-set clipboard+=unnamed 
+set clipboard+=unnamed
 "从不备份  
 set nobackup
 "make 运行
@@ -259,7 +261,7 @@ set history=1000
 set nobackup
 set noswapfile
 "搜索忽略大小写
-set ignorecase
+"set ignorecase
 "搜索逐字符高亮
 set hlsearch
 set incsearch
@@ -310,6 +312,9 @@ set showmatch
 set matchtime=1
 " 光标移动到buffer的顶部和底部时保持3行距离
 set scrolloff=3
+" 显示行尾空格
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
 " 为C程序提供自动缩进
 set smartindent
 " 高亮显示普通txt文件（需要txt.vim脚本）
