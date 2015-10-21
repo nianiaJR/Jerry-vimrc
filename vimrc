@@ -61,6 +61,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 " Git plugin not hosted on GitHub
 Plugin 'git://git.wincent.com/command-t.git'
+" html 补全插件
+Plugin 'mattn/emmet-vim'
 " git repos on your local machine (i.e. when working on your own plugin)
 " Plugin 'file:///home/gmarik/path/to/plugin'
 " The sparkup vim script is in a subdirectory of this repo called vim.
@@ -72,6 +74,9 @@ Plugin 'git://github.com/digitaltoad/vim-jade.git'
 " NERDTree目录插件
 Plugin 'git://github.com/scrooloose/nerdtree.git'
 "
+" 注释插件
+"Plugin 'git://github.com/tpope/vim-commentary.git'
+"
 " 颜色配置以及高亮支持
 " vim-coffee-script
 Plugin 'kchmck/vim-coffee-script'
@@ -79,12 +84,12 @@ Plugin 'altercation/vim-colors-solarized'
 "
 " Ag快速查找插件，比grep要快很多
 Plugin 'rking/ag.vim'
-"
+
 " 编辑中4个空格的缩紧线条显示插件
 Plugin 'Yggdroot/indentLine'
 "
 " javascript 语法规范检查
-Bundle 'lykling/fecs.vim'
+"Bundle 'lykling/fecs.vim'
 "
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -362,3 +367,20 @@ let g:indentLine_char='|'
 let g:solarized_termcolors=256
 let g:SuperTabRetainCompletionType = 2
 let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+
+let g:ycm_min_num_of_chars_for_completion = 3 
+let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_complete_in_comments = 1
+let g:ycm_key_list_select_completion = ['<c-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<c-p>', '<Up>']
+" 比较喜欢用tab来选择补全...
+function! MyTabFunction ()
+    let line = getline('.')
+    let substr = strpart(line, -1, col('.')+1)
+    let substr = matchstr(substr, "[^ \t]*$")
+    if strlen(substr) == 0
+        return "\<tab>"
+    endif
+    return pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>"
+endfunction
+inoremap <tab> <c-r>=MyTabFunction()<cr>
