@@ -16,6 +16,16 @@ set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)
 set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
 set colorcolumn=80
 
+execute pathogen#infect()
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 " 显示中文帮助
 if version >= 603
 	set helplang=cn
@@ -69,6 +79,7 @@ Plugin 'mattn/emmet-vim'
 " Pass the path to set the runtimepath properly.
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'git://github.com/digitaltoad/vim-jade.git'
+Plugin 'posva/vim-vue'
 " 搞明白的插件
 "
 " NERDTree目录插件
@@ -92,6 +103,8 @@ Plugin 'Yggdroot/indentLine'
 "Bundle 'lykling/fecs.vim'
 "
 " All of your Plugins must be added before the following line
+
+Bundle "digitaltoad/vim-pug"
 call vundle#end()            " required
 filetype plugin indent on    " required
 "
@@ -121,7 +134,7 @@ func SetTitle()
 		call append(1,"*") 
 		call append(2,"* @file") 
 		call append(3,"*")
-        call append(4,"* @author Jerry Liang(liangjiarui@baidu.com)")
+        call append(4,"* @author Jerry Liang(liangjr@fenbi.com)")
         call append(5,"* Date: ".strftime("%Y-%m-%d"))
         call append(6,"*/")
     endif
@@ -212,6 +225,13 @@ endfunc
 ""实用设置
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 设置当文件被改动时自动载入
+" Jade
+autocmd BufNewFile,BufReadPost *.jade set filetype=pug
+" Pug
+autocmd BufNewFile,BufReadPost *.pug set filetype=pug
+
+autocmd BufNewFile,BufReadPost *.vue set filetype=html
+
 set autoread
 " quickfix模式
 autocmd filetype c,cpp map <buffer> <leader><space> :w<cr>:make<cr>
@@ -323,6 +343,23 @@ match WhitespaceEOL /\s\+$/
 " 为C程序提供自动缩进
 set smartindent
 " 高亮显示普通txt文件（需要txt.vim脚本）
+
+" check also when just opened the file
+let g:syntastic_check_on_open = 1
+" syntastic checker for javascript.
+" eslint is the only tool support JSX.
+" If you don't need write JSX, you can use jshint.
+" And eslint is slow, but not a hindrance
+" let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
+" don't put icons on the sign column (it hides the vcs status icons of signify)
+let g:syntastic_enable_signs = 0
+" custom icons (enable them if you use a patched font, and enable the previous 
+" setting)
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '⚠'
 au BufRead,BufNewFile *  setfiletype txt
 "自动补全
 :inoremap ( ()<ESC>i
@@ -384,3 +421,4 @@ function! MyTabFunction ()
     return pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>"
 endfunction
 inoremap <tab> <c-r>=MyTabFunction()<cr>
+
