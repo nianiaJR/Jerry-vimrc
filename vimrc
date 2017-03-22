@@ -1,19 +1,19 @@
 filetype off                  " required
 set nocompatible              " be iMproved, required
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" 显示相关  
+" 显示相关
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示  
-set go=             " 不要图形按钮  
-syntax on           " 语法高亮  
-autocmd InsertLeave * se nocul  " 用浅色高亮当前行  
-autocmd InsertEnter * se cul    " 用浅色高亮当前行  
-set showcmd         " 输入的命令显示出来，看的清楚些  
+set shortmess=atI   " 启动的时候不显示那个援助乌干达儿童的提示
+set go=             " 不要图形按钮
+syntax on           " 语法高亮
+autocmd InsertLeave * se nocul  " 用浅色高亮当前行
+autocmd InsertEnter * se cul    " 用浅色高亮当前行
+set showcmd         " 输入的命令显示出来，看的清楚些
 
-set novisualbell    " 不要闪烁(不明白)  
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容  
-set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)  
-set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限  
+set novisualbell    " 不要闪烁(不明白)
+set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ %{strftime(\"%d/%m/%y\ -\ %H:%M\")}   "状态行显示的内容
+set laststatus=2    " 启动显示状态行(1),总是显示状态行(2)
+set nocompatible  "去掉讨厌的有关vi一致性模式，避免以前版本的一些bug和局限
 set colorcolumn=80
 
 execute pathogen#infect()
@@ -21,10 +21,7 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+
 
 " 显示中文帮助
 if version >= 603
@@ -80,10 +77,13 @@ Plugin 'mattn/emmet-vim'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'git://github.com/digitaltoad/vim-jade.git'
 Plugin 'posva/vim-vue'
+Plugin  'asins/vim-dict'
 " 搞明白的插件
 "
 " NERDTree目录插件
 Plugin 'git://github.com/scrooloose/nerdtree.git'
+
+Plugin 'https://github.com/ternjs/tern_for_vim.git'
 "
 " 注释插件
 "Plugin 'git://github.com/tpope/vim-commentary.git'
@@ -118,6 +118,9 @@ map <S-k> :bn<cr>               " 下一个文件
 map <S-j> :bp<cr>               " 上一个文件
 let NERDTreeIgnore = ['\.pyc$']
 nmap <F3> :NERDTreeFocus<CR>
+
+" 关掉quickfix快捷键
+map <C-c> :cclose<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 新文件标题
@@ -268,7 +271,7 @@ set syntax=on
 set confirm
 " 自动缩进
 set autoindent
-set cindent
+" set cindent
 " Tab键的宽度
 set tabstop=4
 " 统一缩进为4
@@ -338,14 +341,14 @@ set matchtime=1
 " 光标移动到buffer的顶部和底部时保持3行距离
 set scrolloff=3
 " 显示行尾空格
-highlight WhitespaceEOL ctermbg=red guibg=red
+highlight WhitespaceEOL ctermbg=green guibg=green
 match WhitespaceEOL /\s\+$/
 " 为C程序提供自动缩进
 set smartindent
 " 高亮显示普通txt文件（需要txt.vim脚本）
 
 " check also when just opened the file
-let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_open = 1
 " syntastic checker for javascript.
 " eslint is the only tool support JSX.
 " If you don't need write JSX, you can use jshint.
@@ -353,7 +356,16 @@ let g:syntastic_check_on_open = 1
 " let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_javascript_checkers = ['eslint']
 " don't put icons on the sign column (it hides the vcs status icons of signify)
-let g:syntastic_enable_signs = 0
+let g:syntastic_enable_signs = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_loc_list_height = 2
+
+let g:syntastic_check_on_open = 0
+let g:syntastic_html_checkers=['eslint']
+let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_w = 1
+
 " custom icons (enable them if you use a patched font, and enable the previous 
 " setting)
 let g:syntastic_error_symbol = '✗'
@@ -421,4 +433,6 @@ function! MyTabFunction ()
     return pumvisible() ? "\<c-n>" : "\<c-x>\<c-o>"
 endfunction
 inoremap <tab> <c-r>=MyTabFunction()<cr>
-
+autocmd filetype javascript set dictionary+=$VIMFILES/bundle/vim-dict/dict/javascript.dic
+autocmd filetype javascript set dictionary+=$VIMFILES/bundle/vim-dict/dict/node.dic
+autocmd filetype css set dictionary+=$VIMFILES/bundle/vim-dict/dict/css.dic
