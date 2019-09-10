@@ -1,0 +1,28 @@
+{
+    "terminal.integrated.shell.linux": "/bin/zsh",
+    "gitlens.advanced.messages": {
+        "suppressShowKeyBindingsNotice": true
+    },
+    "eslint.autoFixOnSave": true,
+    "vim.useSystemClipboard": true,
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        {
+            "language": "vue",
+            "autoFix": true
+        }
+    ],
+    "typescript.updateImportsOnFileMove.enabled": "always",
+    "editor.formatOnPaste": true,
+    "editor.formatOnType": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "editor.tabSize": "2",
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
+    "window.zoomLevel": -1,
+    "editor.quickSuggestionsDelay": 800,
+    "editor.hover.delay": 800,
+    "files.associations": {
+        "*.js": "javascriptreact"
+    }
+}
